@@ -105,11 +105,19 @@ def split(deck):
 	return deck1,deck2
 def hit_or_stand():
 	global playing
-	choice = int(input("\nChoices:\n1 to Hit\n2 to Stand\nYour choice is: "))
-	if choice == 2:
-		playing = False
-	return choice
-
+	print('\nChoices:\nEnter 1 to Hit\nEnter 2 to Stand\n')
+	while True:
+		try:
+			choice = int(input("Your choice is: "))
+			if choice not in [1,2]:
+				raise Negative_Error
+			if choice == 2:
+				playing = False
+			return choice
+			break
+		except:
+			print("\nInvalid choice! Pls try again!")
+			continue
 while True:
 		try:
 			pinput = int(input('Enter the intial balance of the player: '))
@@ -132,9 +140,9 @@ while True:
 	flag_res = True
 	playing = True
 	dealdeck = deck([card('Diamonds','Ace'),card('Diamonds','2'),card('Diamonds','3'),card('Diamonds','4'),card('Diamonds','5'),card('Diamonds','6'),card('Diamonds','7'),card('Diamonds','8'),card('Diamonds','9'),card('Diamonds','10'),card('Diamonds','Jack'),card('Diamonds','Queen'),card('Diamonds','King'),
-						 card('Hearts','Ace'),card('Hearts','2'),card('Hearts','3'),card('Hearts','4'),card('Hearts','5'),card('Hearts','6'),card('Hearts','7'),card('Hearts','8'),card('Hearts','9'),card('Hearts','10'),card('Hearts','Jack'),card('Hearts','Queen'),card('Hearts','King'),
-						 card('Spades','Ace'),card('Spades','2'),card('Spades','3'),card('Spades','4'),card('Spades','5'),card('Spades','6'),card('Spades','7'),card('Spades','8'),card('Spades','9'),card('Spades','10'),card('Spades','Jack'),card('Spades','Queen'),card('Spades','King'),
-						 card('Clubs','Ace'),card('Clubs','2'),card('Clubs','3'),card('Clubs','4'),card('Clubs','5'),card('Clubs','6'),card('Clubs','7'),card('Clubs','8'),card('Clubs','9'),card('Clubs','10'),card('Clubs','Jack'),card('Clubs','Queen'),card('Clubs','King')])	
+					 card('Hearts','Ace'),card('Hearts','2'),card('Hearts','3'),card('Hearts','4'),card('Hearts','5'),card('Hearts','6'),card('Hearts','7'),card('Hearts','8'),card('Hearts','9'),card('Hearts','10'),card('Hearts','Jack'),card('Hearts','Queen'),card('Hearts','King'),
+					 card('Spades','Ace'),card('Spades','2'),card('Spades','3'),card('Spades','4'),card('Spades','5'),card('Spades','6'),card('Spades','7'),card('Spades','8'),card('Spades','9'),card('Spades','10'),card('Spades','Jack'),card('Spades','Queen'),card('Spades','King'),
+					 card('Clubs','Ace'),card('Clubs','2'),card('Clubs','3'),card('Clubs','4'),card('Clubs','5'),card('Clubs','6'),card('Clubs','7'),card('Clubs','8'),card('Clubs','9'),card('Clubs','10'),card('Clubs','Jack'),card('Clubs','Queen'),card('Clubs','King')])	
 	
 	dealdeck.shuffledeck()
 	# Enter the intial information about BlackJack
@@ -165,7 +173,6 @@ while True:
 		clear()
 		if choice == 1:
 			player_deck.hit(dealdeck.deal())
-			print()
 			dealer_deck.dealer_print()
 			print()
 			player_deck.player_print()
@@ -204,10 +211,10 @@ while True:
 
 		
 	if (21 - dealer_deck.value_printer() < 21 - player_deck.value_printer()) and (dealer_deck.value_printer()<22 and player_deck.value_printer()<22) and flag:
-		print('\nPlayer has lost, The Dealer has won the bet!')
+		print('Player has lost, The Dealer has won the bet!')
 		player_bank.reset_bet()
 	elif (21 - dealer_deck.value_printer() > 21 - player_deck.value_printer()) and (dealer_deck.value_printer()<22 and player_deck.value_printer()<22) and flag:
-		print('\nDealer has lost, The Player has won the bet!')
+		print('Dealer has lost, The Player has won the bet!')
 		player_bank.balance+=2*(player_bank.bet)
 		player_bank.reset_bet()
 	elif (21 - dealer_deck.value_printer() == 21 - player_deck.value_printer()) and (dealer_deck.value_printer()<22 and player_deck.value_printer()<22) and flag:
